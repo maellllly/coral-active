@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link rel="icon" href="https://www.coralactive.com/wp-content/uploads/2022/09/Coral-Chevron-colour.svg" sizes="32x32" />
+      <title>Coral Active : JS Exercise</title>
+  </head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .center {
+      border: 3px solid;
+      margin: auto;
+      width: 50%;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      padding: 0 20px;
+      text-align: center; 
+    }
+    .footer {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    ul {
+      list-style-type: disc; 
+    }
+    ul ul {
+      list-style-type: circle; 
+    }
+    ul ul ul {
+      list-style-type: square;
+    }
+    ul ul ul ul{
+      list-style-type: lower-roman;
+    }
+  </style>
+<body>
+  <h1>Coral Active : JS Exercise</h1>
+
+  <div class="center" id="nodeOutput"></div>
+  <div class="footer">
+    <p>Submitted by <a target="_blank" href="https://dev-by-lance.pantheonsite.io/">Lance Aranda</a>: 
+      <a target="_blank" href="https://github.com/maellllly/coral-active/">Source Code</a>
+    </p>
+  </div>
+</body>
+  <script>
+
+  function createUnorderedList(root, nodesArr) {
+
+    var ul = document.createElement('ul');
+    var li;
+
+    root.appendChild(ul); // append the created ul to the root
+
+    nodesArr.forEach((node) => {
+      if (typeof node === 'string') {
+        li = document.createElement('li'); // create a new list item
+        li.appendChild(document.createTextNode(node)); // append the text to the li
+      } 
+      else if (typeof node === 'object' && Array.isArray(node.nodes)) {
+        li = document.createElement('li'); // create a new list item
+        li.appendChild(document.createTextNode(node.name)); // append the text to the li
+        createUnorderedList(li, node.nodes)
+      }
+       ul.appendChild(li); // append the list item to the ul
+    });
+  }
+
+  const nodesArr = [
+    'one',
+    { name: 'two', nodes: [{ name: '2.1', nodes: ['2.1a'] }, 'two point two'] },
+    'three'
+  ];
+
+  var div = document.getElementById('nodeOutput');
+
+  createUnorderedList(div, nodesArr);
+
+  </script>
+</html>
